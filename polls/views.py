@@ -8,8 +8,11 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Choice, Question
+from .models import Choice, Question, Form
 
+class FormView(generic.DetailView):
+    model = Form
+    template_name = "form/create.html"
 
 class IndexView(generic.ListView):
     template_name = "index.html"
@@ -20,7 +23,7 @@ class IndexView(generic.ListView):
         Return the last five published questions (not including those set to be
         published in the future).
         """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+        return Question.objects.all()[:5]
 
 
 class DetailView(generic.DetailView):
