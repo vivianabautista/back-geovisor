@@ -1,12 +1,7 @@
 from django.urls import path
+from .views import FormSearchView
 
-from . import views
-
-app_name = "polls"
 urlpatterns = [
-    path("", views.IndexView.as_view(), name="index"),
-    path("<int:pk>/", views.DetailView.as_view(), name="detail"),
-    path("<int:pk>/results/", views.ResultsView.as_view(), name="results"),
-    path("<int:question_id>/vote/", views.vote, name="vote"),
-    path("form/", views.FormView.as_view(), name="form"),
+    path('form/', FormSearchView.as_view()),                # Para traer todos si no hay búsqueda
+    path('form/<str:search>/', FormSearchView.as_view()),   # Para buscar por palabra
 ]
