@@ -33,6 +33,78 @@ class TypeChoice(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=200)
 
+    @classmethod
+    def create_default_types(cls):
+        """Crear tipos por defecto si no existen"""
+        default_types = [
+            {
+                'name': 'Pregunta abierta',
+                'description': 'Pregunta que requiere una respuesta detallada'
+            },
+            {
+                'name': 'Selección única',
+                'description': 'Solo una opción puede ser seleccionada'
+            },
+            {
+                'name': 'Selección múltiple',
+                'description': 'Varias opciones pueden ser seleccionadas'
+            },
+            {
+                'name': 'Desplegable',
+                'description': 'Selección única en formato dropdown'
+            },
+            {
+                'name': 'Escala de valoración',
+                'description': 'Ej: de 1 a 5, de “muy en desacuerdo” a “muy de acuerdo”'
+            },
+            {
+                'name': 'Rango',
+                'description': 'Slider para seleccionar un valor dentro de un rango numérico'
+            },
+            {
+                'name': 'Número',
+                'description': 'Solo acepta valores numéricos'
+            },
+            {
+                'name': 'Fecha / Hora',
+                'description': 'Calendario o selector de hora'
+            },
+            {
+                'name': 'Sí / No',
+                'description': 'Pregunta cerrada de respuesta binaria'
+            },
+            {
+                'name': 'Binaria',
+                'description': 'Pregunta cerrada de respuesta binaria'
+            },
+            {
+                'name': 'Clasificación',
+                'description': 'Ordenar elementos según preferencia'
+            },
+            {
+                'name': 'Carga de archivo',
+                'description': 'Permite subir un documento, imagen, etc.'
+            },
+            {
+                'name': 'Ubicación',
+                'description': 'Para indicar una posición geográfica'
+            },
+            {
+                'name': 'Firma digital',
+                'description': 'Campo para firmar con el dedo o mouse'
+            },
+            {
+                'name': 'Condicional',
+                'description': 'Define lógica de salto (si responde X, entonces mostrar Y)'
+            }
+        ]
+        
+        for type_data in default_types:
+            cls.objects.get_or_create(
+                name=type_data['name'],
+                defaults=type_data
+            )
+
     def __str__(self):
         return self.name
 

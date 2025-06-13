@@ -2,9 +2,9 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path("form/", FormView.as_view()),
-    path("form/<int:pk>/", FormView.as_view(), name='form-detail'),
+    path("form/<int:pk>/", FormView.as_view()),
     path("form/<str:search>/", FormView.as_view()),
+    path("form/", FormView.as_view()),
     
 
     path("form/<int:form_id>/section/<int:section_id>/", FormSectionView.as_view(), name='form-section'),

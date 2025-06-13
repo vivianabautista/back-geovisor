@@ -51,8 +51,16 @@ class FormSectionView(APIView):
                           status=status.HTTP_400_BAD_REQUEST)
 
 class FormView(APIView):
-    def get(self, request, search=None):
+    def get(self, request, pk=None, search=None):
         queryset = Form.objects.all()
+        if pk:
+            try:
+                form = Form.objects.get(id=pk)
+                serializer = FormSerializer(form)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except Form.DoesNotExist:
+                return Response({"error": "Form not found"}, status=status.HTTP_404_NOT_FOUND)
+        
         if search:
             queryset = queryset.filter(name__icontains=search)
         
